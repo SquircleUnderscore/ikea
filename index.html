@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IKEA Furniture or Swedish Word?</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="game-container">
+        <h1>
+            <img src="images/ikea.png" alt="IKEA Logo" class="title-image ikea-logo">
+            <span class="text-part">Furniture or Swedish</span>
+            <img src="images/word.png" alt="Word Image" class="title-image word-logo">
+        </h1>
+
+        <!-- Écran d'accueil -->
+        <div id="start-screen" class="screen active">
+            <p>Testez votre connaissance des noms de meubles IKEA et des mots suédois ! Prêt à relever le défi ?</p>
+            <button id="start-button">Start the game</button>
+        </div>
+
+        <!-- Écran du Quiz -->
+        <div id="quiz-screen" class="screen">
+            <!-- CORRECTION : Remplacement du compteur par la barre de progression -->
+<div id="progress-bar-container">
+    <div id="progress-bar-fill"></div>
+</div>
+
+            
+            <div id="word-display"></div>
+            
+            <div id="answer-buttons">
+                <button class="choice-btn" data-choice="ikea">Meuble IKEA</button>
+                <button class="choice-btn" data-choice="swedish">Mot suédois</button>
+            </div>
+            
+            <div id="feedback">
+                <button class="next-btn" id="next-question-button" style="display: none;">Next</button>
+            </div>
+        </div>
+
+        <!-- Écran des résultats -->
+        <div id="results-screen" class="screen">
+            <h2>Partie terminée !</h2>
+            <p>Votre score : <span id="final-score"></span> / 15</p>
+            <p>Temps total : <span id="total-time"></span> secondes</p>
+            <button id="restart-button">Rejouer</button>
+        </div>
+    </div>
+
+    <!-- C'est la bonne bibliothèque pour le code JS qui suit -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

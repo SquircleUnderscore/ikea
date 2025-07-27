@@ -1,0 +1,241 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-image: url('images/background.png');
+    background-attachment: fixed;
+    overflow-x: hidden;
+    animation: move-background 20s linear infinite;
+
+} 
+
+@keyframes move-background {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: -255px 255px;
+    }
+}
+
+#game-container {
+    background-color: #0471D9;
+    padding: 2em;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-align: center;
+    width: 90%;
+    max-width: 500px;
+    border: 10px solid #FBD913;
+        position: relative; 
+
+}
+
+/* Cache les écrans par défaut */
+.screen {
+    display: none;
+}
+
+/* Affiche l'écran actif */
+.screen.active {
+    display: block;
+}
+
+#word-display {
+    font-size: 2.5em;
+    font-weight: bold;
+    margin: 1em 0;
+    color: #0058a3; /* Bleu IKEA */
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    margin: 5px;
+    transition: background-color 0.3s;
+}
+
+#start-button, #restart-button {
+    background-color: #ffdb00; /* Jaune IKEA */
+    color: #0058a3;
+    font-weight: bold;
+}
+
+#start-button:hover, #restart-button:hover{
+    background-color: #e6c500;
+}
+
+.choice-btn {
+    background-color: #0058a3;
+    color: white;
+}
+
+.choice-btn:hover {
+    background-color: #004b8d;
+}
+
+.next-btn {
+    display: block;
+    margin: 0 auto;
+    background-color: #ffdb00;
+    color: #0058a3;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+.next-btn:hover {
+    background-color: #e6c500;
+}
+
+
+#feedback {
+    margin-top: 20px;
+    font-size: 1.2em;
+}
+
+#feedback img {
+    max-width: 150px;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.correct {
+    color: green;
+}
+
+.incorrect {
+    color: red;
+}
+
+
+    h1 {
+      font-family: rubik;
+      font-size: 2rem;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 2rem;
+            animation: pop-in 0.8s ease-out both;
+
+    }
+
+
+    @keyframes pop-in {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .title-image {
+      height: 2.5rem;
+      vertical-align: middle;
+      transition: transform 0.3s ease;
+    }
+
+    .title-image:hover {
+      transform: scale(3) rotate(5deg);
+    }
+
+
+    
+.ikea-logo {
+
+  transform: rotate(-5deg) ;
+        box-shadow: 0 0.4rem 0.6rem rgba(0,0,0,0.1);
+
+  
+}
+
+
+
+
+    .word-logo {
+      animation: bounce 1.2s infinite ease-in-out;
+      margin-top: 0.5rem;
+            box-shadow: 0 0.4rem 0.6rem rgba(0,0,0,0.1);
+
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .text-part {
+      margin: 0 0.3rem;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      .title-image {
+        height: 2rem;
+      }
+    }
+
+
+
+
+#timer {
+    position: absolute; /* Positionnement absolu par rapport à #game-container */
+    bottom: 15px;       /* Distance par rapport au bas */
+    right: 15px;        /* Distance par rapport à la droite */
+    
+    font-size: 1.2em;   /* Un peu plus petit pour être moins imposant dans le coin */
+    font-weight: bold;
+    color: #0058a3;     /* Bleu IKEA */
+    background-color: #ffdb00; /* Jaune IKEA */
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
+    border-radius: 50%;
+    margin: 0; /* On enlève la marge auto */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    text-align: center; /* S'assurer que le chiffre est bien centré */
+}
+
+
+
+/* NOUVEAUX Styles pour une VRAIE barre de progression */
+#progress-bar-container {
+    width: 100%;
+    height: 20px; /* Un peu plus haute pour un meilleur impact */
+    background-color: #e0e0e0; /* Fond gris clair de la barre vide */
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    position: relative; /* Important pour positionner le remplissage */
+    overflow: hidden; /* Pour que le remplissage ait des coins arrondis */
+}
+
+#progress-bar-fill {
+    height: 100%;
+    width: 0%; /* Commence vide */
+    background-color: #4CAF50; /* Vert par défaut */
+    border-radius: 10px;
+    transition: width 0.5s ease-in-out, background-color 0.5s ease; /* Animation fluide */
+}
+
+/* On peut toujours utiliser ces classes pour changer la couleur du dernier segment */
+#progress-bar-fill.correct {
+    background-color: #4CAF50; /* Vert pour une bonne réponse */
+}
+
+#progress-bar-fill.incorrect {
+    background-color: #F44336; /* Rouge pour une mauvaise réponse */
+}
+
