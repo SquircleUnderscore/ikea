@@ -41,27 +41,51 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             word: 'Poäng',
             image: 'images/ikea/poaeng.jpeg',
-            description: 'Un fauteuil en bois flexible et confortable.',
+            description: 'POÄNG armchair has stylish curved lines in bentwood, providing nice support for the neck and comfy resilience. It’s been in our range for several decades and is still just as popular. Want to try it too?',
             type: 'ikea'
-        }
+        },
+
+        {
+            word: 'Boka',
+            image: 'images/word/boka.jpg',
+            description: 'A book is a structured presentation of recorded information, primarily verbal and graphical, through a medium. Originally physical, electronic books and audiobooks are now existent.',
+            type: 'swedish'
+        },
+        {
+            word: 'Virklund',
+            image: 'images/ikea/virklund.jpeg',
+            description: 'A versatile rug with classic stripes that goes just about anywhere - indoors or outdoors. If you want a new look after a while, just flip it over and use the compatible pattern on the reverse side.',
+            type: 'ikea'
+        },
+        {
+            word: 'SD-kort',
+            image: 'images/word/sd-kort.png',
+            description: 'The SD card is a proprietary, non-volatile, flash memory card format developed by the SD Association (SDA). They come in three physical forms: the full-size SD, the smaller miniSD (now obsolete), and the smallest, microSD.',
+            type: 'swedish'
+        },
+       {
+            word: 'Rådmansö',
+            image: 'images/ikea/radmansoe.jpeg',
+            description: 'The RÅDMANSÖ series is inspired by mid-century design with sleek lines, great functionality and a warm walnut tone. This wardrobe has space for both hanging and folded clothes – and a smart sliding door too.',
+            type: 'ikea'
+        },
+        
+
+            
     ];
 
     // ÉLÉMENTS DU DOM
-        // ÉLÉMENTS DU DOM
     const startScreen = document.getElementById('start-screen');
     const quizScreen = document.getElementById('quiz-screen');
     const resultsScreen = document.getElementById('results-screen');
     const startButton = document.getElementById('start-button');
     const restartButton = document.getElementById('restart-button');
-    const progressBarFill = document.getElementById('progress-bar-fill'); // MODIFIÉ : On cible le remplissage
+    const shareButton = document.getElementById('share-button');
+    const progressBarFill = document.getElementById('progress-bar-fill');
     const wordDisplay = document.getElementById('word-display');
     const answerButtons = document.getElementById('answer-buttons');
     const feedback = document.getElementById('feedback');
     const nextQuestionButton = document.getElementById('next-question-button');
-    const finalScore = document.getElementById('final-score');
-    const totalTime = document.getElementById('total-time');
-    const bestStreakDisplay = document.createElement('p');
-    resultsScreen.insertBefore(bestStreakDisplay, restartButton);
     const timerDisplay = document.createElement('div');
     timerDisplay.id = 'timer';
     quizScreen.insertBefore(timerDisplay, answerButtons);
@@ -76,40 +100,40 @@ document.addEventListener('DOMContentLoaded', () => {
     let timeLeft = QUESTION_TIME;
     let currentStreak = 0;
     let bestStreak = 0;
+    let timeTaken = 0;
 
     // FONCTIONS DU JEU
-
     function triggerConfetti() {
-        // CORRECTION : Ce code utilise `confetti()` directement, qui vient de la bibliothèque que vous avez dans votre HTML.
-var end = Date.now() + (15 * 1000);
+    var end = Date.now() + (15 * 1000);
 
-// go Buckeyes!
-var colors = ['#FBD913', '#FF00C5'];
+    // go Buckeyes!
+    var colors = ['#FBD913', '#0158A3'];
 
-(function frame() {
-  confetti({
-    particleCount: 2,
-    angle: 60,
-    spread: 55,
-    origin: { x: 0 },
-    colors: colors
-  });
-  confetti({
-    particleCount: 2,
-    angle: 120,
-    spread: 55,
-    origin: { x: 1 },
-    colors: colors
-  });
+    (function frame() {
+    confetti({
+        particleCount: 2,
+        angle: 60,
+        spread: 55,
+        origin: { x: 0 },
+        colors: colors
+    });
+    confetti({
+        particleCount: 2,
+        angle: 120,
+        spread: 55,
+        origin: { x: 1 },
+        colors: colors
+    });
 
-  if (Date.now() < end) {
-    requestAnimationFrame(frame);
-  }
-}());
+    if (Date.now() < end) {
+        requestAnimationFrame(frame);
+    }
+    })();
     }
 
-     function setupQuestions() {
-        questions = [...gameData].sort(() => 0.5 - Math.random()).slice(0, 15);
+    function setupQuestions() {
+        const questionCount = Math.min(10, gameData.length);
+        questions = [...gameData].sort(() => 0.5 - Math.random()).slice(0, questionCount);
     }
 
     function startGame() {
@@ -119,11 +143,8 @@ var colors = ['#FBD913', '#FF00C5'];
         currentStreak = 0;
         bestStreak = 0;
         startTime = new Date();
-        
-        // MODIFIÉ : Réinitialiser la barre de progression
         progressBarFill.style.width = '0%';
         progressBarFill.classList.remove('correct', 'incorrect');
-
         startScreen.classList.remove('active');
         resultsScreen.classList.remove('active');
         quizScreen.classList.add('active');
@@ -134,11 +155,9 @@ var colors = ['#FBD913', '#FF00C5'];
         clearInterval(questionTimer);
         const feedbackContent = feedback.querySelector('.feedback-content');
         if (feedbackContent) feedbackContent.remove();
-        
         nextQuestionButton.style.display = 'none';
         answerButtons.style.display = 'block';
         quizScreen.classList.remove('feedback-mode');
-
         if (currentQuestionIndex < questions.length) {
             const question = questions[currentQuestionIndex];
             wordDisplay.textContent = question.word;
@@ -153,59 +172,82 @@ var colors = ['#FBD913', '#FF00C5'];
     function updateTimer() {
         timeLeft--;
         timerDisplay.textContent = timeLeft;
-        if (timeLeft <= 0) {
-            checkAnswer(null);
+        if (timeLeft <= 0) { checkAnswer(null); }
+    }
+
+    function checkAnswer(selectedChoice) {
+        clearInterval(questionTimer);
+        quizScreen.classList.add('feedback-mode');
+        const question = questions[currentQuestionIndex];
+        const isCorrect = selectedChoice !== null && selectedChoice === question.type;
+        const newWidth = ((currentQuestionIndex + 1) / questions.length) * 100;
+        progressBarFill.style.width = `${newWidth}%`;
+        progressBarFill.classList.remove('correct', 'incorrect');
+        progressBarFill.classList.add(isCorrect ? 'correct' : 'incorrect');
+        answerButtons.style.display = 'none';
+        let feedbackHTML = '';
+        if (isCorrect) {
+            score++;
+            currentStreak++;
+            let correctMessage = `<p class="correct">Correct!`;
+            if (currentStreak > 1) { correctMessage += ` <span class="streak">🔥x${currentStreak}</span>`; }
+            correctMessage += `</p>`;
+            feedbackHTML += correctMessage;
+        } else {
+            if (currentStreak > bestStreak) { bestStreak = currentStreak; }
+            currentStreak = 0;
+            feedbackHTML += `<p class="incorrect">${selectedChoice === null ? 'Time out!' : 'Wrong!'}</p>`;
         }
+        feedbackHTML += `<img src="${question.image}" alt="${question.word}"><p>${question.description}</p>`;
+        const feedbackContent = document.createElement('div');
+        feedbackContent.className = 'feedback-content';
+        feedbackContent.innerHTML = feedbackHTML;
+        feedback.prepend(feedbackContent);
+        nextQuestionButton.style.display = 'block';
     }
-
-function checkAnswer(selectedChoice) {
-    clearInterval(questionTimer);
-    quizScreen.classList.add('feedback-mode');
-    const question = questions[currentQuestionIndex];
-    const isCorrect = selectedChoice !== null && selectedChoice === question.type;
-
-    const newWidth = ((currentQuestionIndex + 1) / questions.length) * 100;
-    progressBarFill.style.width = `${newWidth}%`;
-    progressBarFill.classList.remove('correct', 'incorrect');
-    progressBarFill.classList.add(isCorrect ? 'correct' : 'incorrect');
-
-    answerButtons.style.display = 'none';
-    
-    let feedbackHTML = '';
-    if (isCorrect) {
-        score++;
-        currentStreak++;
-        feedbackHTML += `<p class="correct">Correct !</p>`;
-    } else {
-        if (currentStreak > bestStreak) { bestStreak = currentStreak; }
-        currentStreak = 0;
-        feedbackHTML += `<p class="incorrect">${selectedChoice === null ? 'Time elapsed !' : 'False !'}</p>`;
-    }
-    if (currentStreak > 1) { feedbackHTML += `<p>🔥Streak of ${currentStreak} correct answers🔥</p>`; }
-
-    // La ligne qui générait la phrase de confirmation a été supprimée d'ici.
-    
-    // On ajoute directement l'image et la description
-    feedbackHTML += `<img src="${question.image}" alt="${question.word}"><p>${question.description}</p>`;
-    
-    const feedbackContent = document.createElement('div');
-    feedbackContent.className = 'feedback-content';
-    feedbackContent.innerHTML = feedbackHTML;
-    feedback.prepend(feedbackContent);
-
-    nextQuestionButton.style.display = 'block';
-}
 
     function showResults() {
         const endTime = new Date();
-        const timeTaken = Math.round((endTime - startTime) / 1000);
+        timeTaken = Math.round((endTime - startTime) / 1000);
         if (currentStreak > bestStreak) { bestStreak = currentStreak; }
+        document.getElementById('final-score').textContent = `${score}/${questions.length}`;
+        document.getElementById('final-time').textContent = `${timeTaken}s`;
+        document.getElementById('final-streak').textContent = `🔥x${bestStreak}`;
         quizScreen.classList.remove('active');
         resultsScreen.classList.add('active');
-        finalScore.textContent = score;
-        totalTime.textContent = timeTaken;
-        bestStreakDisplay.innerHTML = `Meilleure série de bonnes réponses : <strong>${bestStreak}</strong>`;
         triggerConfetti();
+    }
+
+    function generateShareCard() {
+        const cardTemplate = document.getElementById('share-card-template');
+        document.getElementById('share-score').textContent = `${score}/${questions.length}`;
+        document.getElementById('share-time').textContent = `${timeTaken}s`;
+        document.getElementById('share-streak').textContent = `🔥x${bestStreak}`;
+        shareButton.textContent = 'Generating...';
+        shareButton.disabled = true;
+        cardTemplate.style.display = 'block';
+        htmlToImage.toPng(cardTemplate.firstElementChild, { 
+            quality: 1.0, 
+            pixelRatio: 2,
+            fontEmbedCSS: "@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap' );"
+        })
+        .then(function (dataUrl) {
+            const link = document.createElement('a');
+            link.download = 'ikea-or-swedish-results.png';
+            link.href = dataUrl;
+            link.click();
+        })
+        .catch(function (error) {
+            console.error('Oops, something went wrong!', error);
+            shareButton.textContent = 'Error! Try again';
+        })
+        .finally(function () {
+            cardTemplate.style.display = 'none';
+            if (!shareButton.textContent.includes('Error')) {
+                shareButton.textContent = 'Share Results';
+            }
+            shareButton.disabled = false;
+        });
     }
 
     // ÉCOUTEURS D'ÉVÉNEMENTS
@@ -220,4 +262,5 @@ function checkAnswer(selectedChoice) {
             checkAnswer(e.target.dataset.choice);
         }
     });
+    shareButton.addEventListener('click', generateShareCard);
 });

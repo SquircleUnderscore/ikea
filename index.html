@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,40 +20,83 @@
 
         <!-- Écran d'accueil -->
         <div id="start-screen" class="screen active">
-            <p>Testez votre connaissance des noms de meubles IKEA et des mots suédois ! Prêt à relever le défi ?</p>
+            <p>Can you tell the difference between an IKEA furniture name and a real Swedish word? Let's find out!</p>
             <button id="start-button">Start the game</button>
         </div>
 
         <!-- Écran du Quiz -->
         <div id="quiz-screen" class="screen">
-            <!-- CORRECTION : Remplacement du compteur par la barre de progression -->
-<div id="progress-bar-container">
-    <div id="progress-bar-fill"></div>
-</div>
-
-            
-            <div id="word-display"></div>
-            
-            <div id="answer-buttons">
-                <button class="choice-btn" data-choice="ikea">Meuble IKEA</button>
-                <button class="choice-btn" data-choice="swedish">Mot suédois</button>
+            <div id="progress-bar-container">
+                <div id="progress-bar-fill"></div>
             </div>
-            
+            <div id="word-display"></div>
+            <div id="answer-buttons">
+                <button class="choice-btn" data-choice="ikea">IKEA Furniture</button>
+                <button class="choice-btn" data-choice="swedish">Swedish Word</button>
+            </div>
             <div id="feedback">
                 <button class="next-btn" id="next-question-button" style="display: none;">Next</button>
             </div>
         </div>
 
+        <!-- Modèle caché pour la carte de partage -->
+        <div id="share-card-template" style="display: none;">
+            <div class="share-card-content">
+                <h2>IKEA or Swedish?</h2>
+                <p class="share-card-description">
+                    I tried to guess if a word is an IKEA furniture or a real Swedish word. Here are my results!
+                </p>
+                <div class="share-card-stats">
+                    <div class="stat">
+                        <div class="stat-value" id="share-score"></div>
+                        <div class="stat-label">Score</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" id="share-time"></div>
+                        <div class="stat-label">Time</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" id="share-streak"></div>
+                        <div class="stat-label">Best Streak</div>
+                    </div>
+                </div>
+                <p class="share-card-footer">Play at: IKEA.squircle.computer</p>
+            </div>
+        </div>
+
         <!-- Écran des résultats -->
         <div id="results-screen" class="screen">
-            <h2>Partie terminée !</h2>
-            <p>Votre score : <span id="final-score"></span> / 15</p>
-            <p>Temps total : <span id="total-time"></span> secondes</p>
-            <button id="restart-button">Rejouer</button>
+            <h2>Game Over!</h2>
+            <div class="results-stats-container">
+                <div class="stat">
+                    <div class="stat-value" id="final-score"></div>
+                    <div class="stat-label">Score</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="final-time"></div>
+                    <div class="stat-label">Time</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="final-streak"></div>
+                    <div class="stat-label">Best Streak</div>
+                </div>
+            </div>
+            <div class="results-buttons">
+                <button id="restart-button">Play Again</button>
+                <button id="share-button">Share Results</button>
+            </div>
         </div>
     </div>
 
-    <!-- C'est la bonne bibliothèque pour le code JS qui suit -->
+    <footer id="page-footer">
+        <p>
+            Made by <a href="https://squircle.computer/" target="_blank">Squircle</a> | 
+            Original idea from <a href="https://bubblegumstuff.com/collections/all-gadgets-gifts-and-games/products/swear-or-chair" target="_blank">Bubblegum</a>
+        </p>
+        <p>This site is not affiliated with IKEA.</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.11.11/html-to-image.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
     <script src="script.js"></script>
 </body>
