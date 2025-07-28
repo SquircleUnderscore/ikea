@@ -69,18 +69,145 @@ document.addEventListener('DOMContentLoaded', () => {
             description: 'The RÅDMANSÖ series is inspired by mid-century design with sleek lines, great functionality and a warm walnut tone. This wardrobe has space for both hanging and folded clothes – and a smart sliding door too.',
             type: 'ikea'
         },
+        {
+            word: 'kanin',
+            image: 'images/word/kanin.jpg',
+            description: 'Rabbits or bunnies are small mammals in the family Leporidae (which also includes the hares), which is in the order Lagomorpha (which also includes pikas).',
+            type: 'swedish'
+        },
+       {
+            word: 'Tonstad',
+            image: 'images/ikea/tonstad.jpeg',
+            description: 'Classic design meets a graceful finish in the TONSTAD series in off-white, giving the furniture a solid sense of quality. This bed frame has a modern style with a timeless look – easy to love for years.',
+            type: 'ikea'
+        },
+        {
+            word: 'Bil',
+            image: 'images/word/bil.jpg',
+            description: 'A car, or an automobile, is a motor vehicle with wheels. Most definitions of cars state that they run primarily on roads, seat one to eight people, have four wheels, and mainly transport people rather than cargo.',
+            type: 'swedish'
+        },
+       {
+            word: 'Blåhaj',
+            image: 'images/ikea/blahaj.jpeg',
+            description: 'Big and safe to have by your side if you want to discover the world below the surface of the ocean. The blue shark can swim very far, dive really deep and hear noises from almost 250 meters away. 🏳️‍⚧️',
+            type: 'ikea'
+        },
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
         
 
             
     ];
 
-    // ÉLÉMENTS DU DOM
+ // ÉLÉMENTS DU DOM
     const startScreen = document.getElementById('start-screen');
     const quizScreen = document.getElementById('quiz-screen');
     const resultsScreen = document.getElementById('results-screen');
     const startButton = document.getElementById('start-button');
     const restartButton = document.getElementById('restart-button');
     const shareButton = document.getElementById('share-button');
+    // CORRECTION : On cible l'élément de remplissage de la barre
     const progressBarFill = document.getElementById('progress-bar-fill');
     const wordDisplay = document.getElementById('word-display');
     const answerButtons = document.getElementById('answer-buttons');
@@ -104,31 +231,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // FONCTIONS DU JEU
     function triggerConfetti() {
-    var end = Date.now() + (15 * 1000);
-
-    // go Buckeyes!
-    var colors = ['#FBD913', '#0158A3'];
-
-    (function frame() {
-    confetti({
-        particleCount: 2,
-        angle: 60,
-        spread: 55,
-        origin: { x: 0 },
-        colors: colors
-    });
-    confetti({
-        particleCount: 2,
-        angle: 120,
-        spread: 55,
-        origin: { x: 1 },
-        colors: colors
-    });
-
-    if (Date.now() < end) {
-        requestAnimationFrame(frame);
-    }
-    })();
+        var end = Date.now() + (3 * 1000);
+        var colors = ['#FBD913', '#0158A3'];
+        (function frame() {
+            confetti({ particleCount: 2, angle: 60, spread: 55, origin: { x: 0 }, colors: colors });
+            confetti({ particleCount: 2, angle: 120, spread: 55, origin: { x: 1 }, colors: colors });
+            if (Date.now() < end) { requestAnimationFrame(frame); }
+        }());
     }
 
     function setupQuestions() {
@@ -143,8 +252,9 @@ document.addEventListener('DOMContentLoaded', () => {
         currentStreak = 0;
         bestStreak = 0;
         startTime = new Date();
+        // CORRECTION : On réinitialise la largeur de la barre
         progressBarFill.style.width = '0%';
-        progressBarFill.classList.remove('correct', 'incorrect');
+        progressBarFill.style.backgroundColor = '#00ff08'; // Couleur par défaut
         startScreen.classList.remove('active');
         resultsScreen.classList.remove('active');
         quizScreen.classList.add('active');
@@ -180,12 +290,20 @@ document.addEventListener('DOMContentLoaded', () => {
         quizScreen.classList.add('feedback-mode');
         const question = questions[currentQuestionIndex];
         const isCorrect = selectedChoice !== null && selectedChoice === question.type;
+        
+        // CORRECTION : On met à jour la largeur de la barre
         const newWidth = ((currentQuestionIndex + 1) / questions.length) * 100;
         progressBarFill.style.width = `${newWidth}%`;
-        progressBarFill.classList.remove('correct', 'incorrect');
-        progressBarFill.classList.add(isCorrect ? 'correct' : 'incorrect');
+        
+        // On change la couleur de la barre pour refléter la réponse
+        if (!isCorrect) {
+            progressBarFill.style.backgroundColor = '#F44336'; // Rouge si faux
+        } else {
+            progressBarFill.style.backgroundColor = '#00ff08'; // Vert si correct
+        }
+
         answerButtons.style.display = 'none';
-        let feedbackHTML = '';
+        let feedbackHTML = `<img src="${question.image}" alt="${question.word}"><p>${question.description}</p>`;
         if (isCorrect) {
             score++;
             currentStreak++;
@@ -198,7 +316,6 @@ document.addEventListener('DOMContentLoaded', () => {
             currentStreak = 0;
             feedbackHTML += `<p class="incorrect">${selectedChoice === null ? 'Time out!' : 'Wrong!'}</p>`;
         }
-        feedbackHTML += `<img src="${question.image}" alt="${question.word}"><p>${question.description}</p>`;
         const feedbackContent = document.createElement('div');
         feedbackContent.className = 'feedback-content';
         feedbackContent.innerHTML = feedbackHTML;

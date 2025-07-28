@@ -20,15 +20,16 @@
 
         <!-- Écran d'accueil -->
         <div id="start-screen" class="screen active">
-            <p>Can you tell the difference between an IKEA furniture name and a real Swedish word? Let's find out!</p>
+            <div style="color: #FBD913;"><p>Can you tell the difference between an IKEA furniture name and a random real Swedish word?</p></div>
             <button id="start-button">Start the game</button>
         </div>
 
         <!-- Écran du Quiz -->
         <div id="quiz-screen" class="screen">
-            <div id="progress-bar-container">
-                <div id="progress-bar-fill"></div>
-            </div>
+             <div id="progress-bar-container">
+        <!-- RÉINTRODUCTION DE L'ÉLÉMENT DE REMPLISSAGE -->
+        <div id="progress-bar-fill"></div>
+    </div>
             <div id="word-display"></div>
             <div id="answer-buttons">
                 <button class="choice-btn" data-choice="ikea">IKEA Furniture</button>
@@ -44,7 +45,7 @@
             <div class="share-card-content">
                 <h2>IKEA or Swedish?</h2>
                 <p class="share-card-description">
-                    I tried to guess if a word is an IKEA furniture or a real Swedish word. Here are my results!
+                    qgmdljf kzemoasmfoqepo fufqsodffpouq efjdsmlfjks mdlkgjslvnq smdkjfm zejfmosdi foeiuz qproeiua zrpodf
                 </p>
                 <div class="share-card-stats">
                     <div class="stat">
@@ -66,7 +67,8 @@
 
         <!-- Écran des résultats -->
         <div id="results-screen" class="screen">
-            <h2>Game Over!</h2>
+           <div style="margin-top: -25px;"><h2>Thx you for playing!</h2></div>
+            <div style="color: #FBD913; margin-top: -30px;"><p>Play again or share your results with a beautiful card!</p></div>
             <div class="results-stats-container">
                 <div class="stat">
                     <div class="stat-value" id="final-score"></div>
@@ -83,7 +85,7 @@
             </div>
             <div class="results-buttons">
                 <button id="restart-button">Play Again</button>
-                <button id="share-button">Share Results</button>
+                <button id="share-button" class="holographic-btn">Share Results</button>
             </div>
         </div>
     </div>
