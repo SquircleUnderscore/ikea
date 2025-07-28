@@ -199,15 +199,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             
     ];
-
- // ÉLÉMENTS DU DOM
+    // DOM
     const startScreen = document.getElementById('start-screen');
     const quizScreen = document.getElementById('quiz-screen');
     const resultsScreen = document.getElementById('results-screen');
     const startButton = document.getElementById('start-button');
     const restartButton = document.getElementById('restart-button');
     const shareButton = document.getElementById('share-button');
-    // CORRECTION : On cible l'élément de remplissage de la barre
     const progressBarFill = document.getElementById('progress-bar-fill');
     const wordDisplay = document.getElementById('word-display');
     const answerButtons = document.getElementById('answer-buttons');
@@ -217,7 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
     timerDisplay.id = 'timer';
     quizScreen.insertBefore(timerDisplay, answerButtons);
 
-    // VARIABLES DU JEU
+    // VAR
     let currentQuestionIndex = 0;
     let score = 0;
     let startTime;
@@ -229,7 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let bestStreak = 0;
     let timeTaken = 0;
 
-    // FONCTIONS DU JEU
+    // FUN
     function triggerConfetti() {
         var end = Date.now() + (3 * 1000);
         var colors = ['#FBD913', '#0158A3'];
@@ -290,16 +288,13 @@ document.addEventListener('DOMContentLoaded', () => {
         quizScreen.classList.add('feedback-mode');
         const question = questions[currentQuestionIndex];
         const isCorrect = selectedChoice !== null && selectedChoice === question.type;
-        
-        // CORRECTION : On met à jour la largeur de la barre
         const newWidth = ((currentQuestionIndex + 1) / questions.length) * 100;
         progressBarFill.style.width = `${newWidth}%`;
         
-        // On change la couleur de la barre pour refléter la réponse
         if (!isCorrect) {
-            progressBarFill.style.backgroundColor = '#F44336'; // Rouge si faux
+            progressBarFill.style.backgroundColor = '#F44336'; 
         } else {
-            progressBarFill.style.backgroundColor = '#00ff08'; // Vert si correct
+            progressBarFill.style.backgroundColor = '#00ff08'; 
         }
 
         answerButtons.style.display = 'none';
@@ -367,7 +362,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ÉCOUTEURS D'ÉVÉNEMENTS
+    // LISTENERS
     startButton.addEventListener('click', startGame);
     restartButton.addEventListener('click', startGame);
     nextQuestionButton.addEventListener('click', () => {
