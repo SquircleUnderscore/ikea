@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
 
         {
-            word: 'Boka',
+            word: 'Bök',
             image: 'images/word/boka.jpg',
             description: 'A book is a structured presentation of recorded information, primarily verbal and graphical, through a medium. Originally physical, electronic books and audiobooks are now existent.',
             type: 'swedish'
