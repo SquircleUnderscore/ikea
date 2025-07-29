@@ -179,7 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         {
             word: 'Sorg',
-            image: 'images/word/sorg.jpg',
+            image: 'images/word/Sorrow.webp',
             description: 'Sorrow is an emotion, feeling, or sentiment. Sorrow is more "intense" than sadness, implies a long-term state and suggests — unlike unhappiness — a degree of resignation.',
             type: 'swedish'
         },
@@ -531,6 +531,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const endTime = new Date();
         timeTaken = Math.round((endTime - startTime) / 1000);
         if (currentStreak > bestStreak) { bestStreak = currentStreak; }
+        const baseScore = score * 100;
+        const streakBonus = bestStreak * 50;
+        const maxTime = questions.length * QUESTION_TIME;
+        const timeBonus = Math.max(0, (maxTime - timeTaken) * 2);
+        const performanceScore = baseScore + streakBonus + timeBonus;
+        document.getElementById('performance-score').textContent = performanceScore;
         document.getElementById('final-score').textContent = `${score}/${questions.length}`;
         document.getElementById('final-time').textContent = `${timeTaken}s`;
         document.getElementById('final-streak').textContent = `🔥x${bestStreak}`;
@@ -541,9 +547,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function generateShareCard() {
         const cardTemplate = document.getElementById('share-card-template');
+            const baseScore = score * 100;
+            const streakBonus = bestStreak * 50;
+            const maxTime = questions.length * QUESTION_TIME;
+            const timeBonus = Math.max(0, (maxTime - timeTaken) * 2);
+            const performanceScore = baseScore + streakBonus + timeBonus;
         document.getElementById('share-score').textContent = `${score}/${questions.length}`;
         document.getElementById('share-time').textContent = `${timeTaken}s`;
         document.getElementById('share-streak').textContent = `🔥x${bestStreak}`;
+        document.getElementById('share-performance-score').textContent = performanceScore;
         shareButton.textContent = 'Generating...';
         shareButton.disabled = true;
         cardTemplate.style.display = 'block';

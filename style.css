@@ -187,16 +187,39 @@ button:hover { transform: translateY(-3px); }
 #page-footer a:hover { color: #d0b413; }
 
 #share-card-template { position: fixed; top: -9999px; left: -9999px; }
-.share-card-content { width: 400px; background: #0471D9; color: white; font-family: 'Rubik', sans-serif; border: 10px solid #FBD913; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px; box-sizing: border-box; }
-.share-card-description { font-size: 1em; margin: 10px 0 15px 0; color: white; max-width: 90%; }
+.share-card-content {
+    width: 400px;
+    background: #0471D9;
+    color: white;
+    font-family: 'Rubik', sans-serif;
+    border: 10px solid #FBD913;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    
+    /* CORRECTION : On réduit le padding en bas */
+    padding: 20px 20px 15px 20px; /* Haut, Droite, Bas, Gauche */
+    
+    box-sizing: border-box;
+}.share-card-description { font-size: 1em; margin: 10px 0 15px 0; color: white; max-width: 90%; }
 .share-card-content h2 { font-size: 2em; margin: 0; color: #FBD913; }
 .share-card-stats { display: flex; justify-content: space-around; width: 100%; margin-bottom: 20px; }
 .stat { display: flex; flex-direction: column; }
 .stat-value { font-size: 1.8em; font-weight: bold; }
 .stat-label { font-size: 0.9em; color: #e0e0e0; }
-.share-card-footer { font-size: 0.8em; color: #FBD913; font-weight: bold; }
+.share-card-footer {
+    font-size: 1.1em;
+    color: #FBD913;
+    font-weight: bold;
+    /* CORRECTION : On réduit la marge du haut pour rapprocher le footer des stats */
+    margin-top: 0px; 
+    margin-bottom: 0; 
+    text-shadow: 0 0 5px rgba(251, 217, 19, 0.5);
+}
 
-.results-stats-container { display: flex; flex-direction: column; gap: 15px; width: 100%; max-width: 350px; margin: 20px 0; padding: 15px; background-color: rgba(0, 0, 0, 0.1); border-radius: 10px; }
+.results-stats-container { display: flex; flex-direction: column; gap: 15px; width: 100%; max-width: 350px; margin: 5px 0; padding: 15px; background-color: rgba(0, 0, 0, 0.1); border-radius: 10px; }
 .results-stats-container .stat { flex-direction: row; justify-content: space-between; align-items: center; }
 .results-stats-container .stat-value { color: white; }
 .results-stats-container .stat-label { color: #e0e0e0; order: -1; }
@@ -206,3 +229,34 @@ button:hover { transform: translateY(-3px); }
 .holographic-btn::before { content: ''; position: absolute; top: -2px; left: -2px; width: calc(100% + 4px); height: calc(100% + 4px); background: linear-gradient(90deg, #ff00ff, #00ffea, #fffc00, #ff00ff); background-size: 400% 100%; animation: holographic-border-scroll 8s linear infinite; z-index: -1; filter: blur(3px); }
 @keyframes holographic-border-scroll { 0% { background-position: 0% 50%; } 100% { background-position: 400% 50%; } }
 #share-button:hover { background-color: rgba(0, 60, 110, 0.6); }
+
+
+.performance-score-container {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 2px solid #ffdb00;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+.performance-score-label {
+    font-size: 1em;
+    color: #e0e0e0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.performance-score-value {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 0 0 10px #ffdb00, 0 0 20px #ffdb00;
+    animation: pulse-score 2s infinite;
+}
+
+/* Animation de pulsation pour le score */
+@keyframes pulse-score {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
