@@ -121,19 +121,19 @@ button:hover { transform: translateY(-3px); }
 
 .start-description {
     color: #FBD913;
-    margin-bottom: 1.5em; /* Espace avant le bouton "Start" */
+    margin-bottom: 1.5em;
 }
 
 .start-description p {
-    margin: 0.5em 0; /* Espace entre les deux paragraphes */
-    line-height: 1.5; /* Rend le texte plus lisible */
+    margin: 0.5em 0; 
+    line-height: 1.5; 
 }
 
 .disclaimer {
     color: #FBD913;
     font-size: 0.9em;
     font-style: italic;
-    opacity: 0.8; /* La rend un peu plus discrète */
+    opacity: 0.8; 
 }
 
 #feedback { margin-top: 40px; font-size: 1.2em; }
@@ -198,10 +198,7 @@ button:hover { transform: translateY(-3px); }
     justify-content: center;
     align-items: center;
     text-align: center;
-    
-    /* CORRECTION : On réduit le padding en bas */
-    padding: 20px 20px 15px 20px; /* Haut, Droite, Bas, Gauche */
-    
+    padding: 20px 20px 15px 20px; 
     box-sizing: border-box;
 }.share-card-description { font-size: 1em; margin: 10px 0 15px 0; color: white; max-width: 90%; }
 .share-card-content h2 { font-size: 2em; margin: 0; color: #FBD913; }
@@ -213,7 +210,6 @@ button:hover { transform: translateY(-3px); }
     font-size: 1.1em;
     color: #FBD913;
     font-weight: bold;
-    /* CORRECTION : On réduit la marge du haut pour rapprocher le footer des stats */
     margin-top: 0px; 
     margin-bottom: 0; 
     text-shadow: 0 0 5px rgba(251, 217, 19, 0.5);
@@ -254,7 +250,6 @@ button:hover { transform: translateY(-3px); }
     animation: pulse-score 2s infinite;
 }
 
-/* Animation de pulsation pour le score */
 @keyframes pulse-score {
     0% { transform: scale(1); }
     50% { transform: scale(1.05); }
