@@ -28,6 +28,7 @@ body {
     border: 10px solid #FBD913;
     position: relative;
     margin: 0 10px;
+    z-index: 2;
 }
 
 .screen { display: none; }
@@ -116,6 +117,24 @@ button:hover { transform: translateY(-3px); }
 .choice-btn:hover { background-color: #004b8d; }
 
 .next-btn { margin: 20px auto 0 auto; display: block; }
+
+
+.start-description {
+    color: #FBD913;
+    margin-bottom: 1.5em; /* Espace avant le bouton "Start" */
+}
+
+.start-description p {
+    margin: 0.5em 0; /* Espace entre les deux paragraphes */
+    line-height: 1.5; /* Rend le texte plus lisible */
+}
+
+.disclaimer {
+    color: #FBD913;
+    font-size: 0.9em;
+    font-style: italic;
+    opacity: 0.8; /* La rend un peu plus discrète */
+}
 
 #feedback { margin-top: 40px; font-size: 1.2em; }
 #feedback p { color: #FBD913; }
